@@ -1,0 +1,21 @@
+<nav class="navbar sticky-top navbar-light navbar-collapse p-0 align-self-center w-100">
+  <div class="row w-100 no-gutters" style="background-color: rgb(230, 195, 0)">
+    <div class="col-sm-3 align-self-center">
+      <a class="navbar-brand" href="#">
+        <img src="/assets/twitter.svg" height="15" class=" align-self-center pl-3" alt="">
+        Tweet Sentiment Analyzer
+      </a>
+    </div>
+    <div class="col-sm-6 align-self-center">
+      <input class="form-control form-control-sm" type="text" (keyup.enter)="setSearchQuery(item.value);" #item
+             placeholder="Search subject">
+    </div>
+    <div class="col-sm-3 align-self-center">
+      <img src="/assets/sfeir-logo.png" height="40" class="align-self-center float-right pr-3" alt="">
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>

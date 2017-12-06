@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sfeir</groupId>
+    <artifactId>shared-model</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <name>shared-model</name>
+    <url>http://maven.apache.org</url>
+
+<dependencies>
+    <!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core -->
+    <dependency>
+        <groupId>org.twitter4j</groupId>
+        <artifactId>twitter4j-core</artifactId>
+        <version>4.0.6</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons-core -->
+    <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-commons</artifactId>
+        <version>1.13.8.RELEASE</version>
+    </dependency>
+
+
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+
+
+</dependencies>
+</project>

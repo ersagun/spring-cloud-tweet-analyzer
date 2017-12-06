@@ -1,0 +1,45 @@
+<div class="row" >
+  <div class="col-sm-6 jumbotron scrollit p-2">
+    <h3 class="display-5 text-center">User tweets</h3>
+    <hr class="my-4">
+    <div class="row" *ngIf="(tweetObservable | async)?.length > 0 ">
+      <div class="card w-100 p-2" *ngFor="let tweet of (tweetObservable | async)" >
+        <div class="card-block p-3">
+          <h4 class="card-title">{{tweet?.name}}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Number of followers : {{tweet?.numberOfFollower}}</h6>
+          <p class="card-text">{{tweet?.text}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="! (tweetObservable | async) ">
+      <div class="card w-100 p-2">
+        <div class="card-block align-self-center">
+          <h4 class="card-title">Welcome to Tweet Sentiment Analyzer</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="(tweetObservable | async)?.length <= 0 && (tweetObservable | async) ">
+      <div class="card w-100 p-2">
+        <div class="card-block align-self-center">
+          <h4 class="card-title">No tweet for this subject</h4>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-6 jumbotron p-2">
+    <h3 class="display-5 text-center">User sentiments</h3>
+    <hr class="my-4">
+    <div class="row justify-content-center align-self-center w-100 p-2">
+      <ngx-gauge size="240" type="full" thick="2" min="-0.5" max="0.5" value={{score}} cap="round" label="Score" append="%" foregroundColor="#ffcc66" backgroundColor="#EEE">
+      </ngx-gauge>
+    </div>
+    <div class="row justify-content-center w-100 p-2">
+      <ngx-gauge size="240" type="full" thick="2" min="0" max="10" value={{magnitude}} cap="round" label="Magnitude" append="%" foregroundColor="#ffcc66" backgroundColor="#EEE">
+      </ngx-gauge>
+    </div>
+  </div>
+</div>
