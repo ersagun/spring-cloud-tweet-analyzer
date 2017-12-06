@@ -1,7 +1,6 @@
 package com.sfeir.tweet.sse.service;
 
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import shared.Tweet;
@@ -53,38 +52,38 @@ public class SseManager {
         }
     }
 
-    @HystrixCommand(fallbackMethod = "fallbackSendTweetToSseUser")
+   // @HystrixCommand(fallbackMethod = "fallbackSendTweetToSseUser")
     public void sendTweetToSseUser(Tweet tweet){
         if(this.sseTweet.containsKey(tweet.getUser())) {
             try {
                 LOGGER.log(Level.INFO, "Tweet are sending to " + tweet.getUser().getName());
                 this.sseTweet.get(tweet.getUser()).send(tweet);
             } catch (Exception e) {
-                throw new RuntimeException("Simulating downstream system failure");
+               // throw new RuntimeException("Simulating downstream system failure");
             }
         }
     }
 
-    public void fallbackSendTweetToSseUser(Tweet tweet, Throwable throwable) {
+/*    public void fallbackSendTweetToSseUser(Tweet tweet, Throwable throwable) {
         LOGGER.log(Level.INFO, "User "+tweet.getUser()+ "'s connection is broken. Failure catched by circuit breaker, message is not sended to "+ tweet.getUser().getId());
-    }
+    }*/
 
 
-    @HystrixCommand(fallbackMethod = "fallbackSendTweetStatsToSseUser")
+ //   @HystrixCommand(fallbackMethod = "fallbackSendTweetStatsToSseUser")
     public  void sendTweetStatsToSseUser(TweetStats tweetStats){
         if(this.sseTweet.containsKey(tweetStats.getUser())) {
             try {
                 LOGGER.log(Level.INFO, "Tweet Stats are sending to " + tweetStats.getUser().getName());
                 this.sseTweet.get(tweetStats.getUser()).send(tweetStats);
             } catch (Exception e) {
-                throw new RuntimeException("Simulating downstream system failure");
+               // throw new RuntimeException("Simulating downstream system failure");
             }
         }
     }
 
-    public void fallbackSendTweetStatsToSseUser(TweetStats tweetStats, Throwable throwable) {
+/*    public void fallbackSendTweetStatsToSseUser(TweetStats tweetStats, Throwable throwable) {
         LOGGER.log(Level.INFO, "User "+tweetStats.getUser()+ "'s connection is broken. Failure catched by circuit breaker, message is not sended to "+ tweetStats.getUser().getId());
-    }
+    }*/
 
     public  boolean sseContainsUser(User user) {
         return this.sseTweet.containsKey(user);

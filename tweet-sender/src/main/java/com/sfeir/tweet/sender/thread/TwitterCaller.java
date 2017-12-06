@@ -1,6 +1,5 @@
 package com.sfeir.tweet.sender.thread;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.sfeir.tweet.sender.channel.TweetSourceChannel;
 import org.springframework.integration.support.MessageBuilder;
 import shared.Tweet;
@@ -91,7 +90,6 @@ public class TwitterCaller implements Runnable {
         }
     }
 
-    @HystrixCommand(fallbackMethod = "fallbackGetTweets")
     public QueryResult getTweets(Query query) {
         QueryResult queryResult = null;
         try {
@@ -103,11 +101,7 @@ public class TwitterCaller implements Runnable {
         return queryResult;
     }
 
-    public QueryResult fallbackGetTweets(Query query, Throwable throwable){
-        LOGGER.log(Level.WARNING, "Twitter is not accessible => managed by fallback method");
-        QueryResult queryResult =null;
-        return queryResult;
-    }
+
 
 
 }

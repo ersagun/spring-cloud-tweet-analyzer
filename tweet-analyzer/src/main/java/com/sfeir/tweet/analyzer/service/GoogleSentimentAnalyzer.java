@@ -12,16 +12,16 @@ import java.util.logging.Logger;
 public class GoogleSentimentAnalyzer {
     private static final Logger LOGGER = Logger.getLogger(GoogleSentimentAnalyzer.class.getName());
 
-    public Sentiment sentimentAnalyzer(String text){
+    public Sentiment sentimentAnalyzer(String text) {
         Sentiment sentiment = null;
 
         try (LanguageServiceClient language = LanguageServiceClient.create()) {
-                Document doc = Document.newBuilder()
-                        .setContent(text).setType(Document.Type.PLAIN_TEXT).build();
-                // Detects the sentiment of the text
-                sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
-                if(sentiment==null)
-                    System.out.println("sentiment not found");
+            Document doc = Document.newBuilder()
+                    .setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+            // Detects the sentiment of the text
+            sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
+            if (sentiment == null)
+                System.out.println("sentiment not found");
 
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Seniment analyzer has a problem to analyze :" + text);
