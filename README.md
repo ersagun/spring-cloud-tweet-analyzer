@@ -1,4 +1,4 @@
-# Random Quote Machine
+# Tweet Analyzer - Simple version
 ## Conception and Architecture
 ![Screenshot](tweets.png)
 
