@@ -44,7 +44,7 @@ public class TweetSentimentEmitter {
         return group
                 .reduce(new TweetStats(0, 0, 0f, 0f, new User()), (ts, d) -> {
                     Sentiment sentiment = this.googleSentimentAnalyzer.sentimentAnalyzer(d.getText());
-                    return new TweetStats(d.getUser().getId(), ts.getNbTweet() + 1, sentiment.getScore(), sentiment.getMagnitude(), d.getUser());
+                    return new TweetStats(d.getUser().getId(), ts.getNbTweet() + 1, ts.getScore()+sentiment.getScore(), ts.getMagnitude()+sentiment.getMagnitude(), d.getUser());
                 }).map(accumulator -> new TweetStats(accumulator.getId(), accumulator.getNbTweet(), (accumulator.getScore() / accumulator.getNbTweet()), (accumulator.getMagnitude() / accumulator.getNbTweet()), accumulator.getUser()));
     }
 }
