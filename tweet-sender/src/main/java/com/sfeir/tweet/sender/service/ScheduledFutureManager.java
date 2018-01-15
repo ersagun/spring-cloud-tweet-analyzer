@@ -1,6 +1,7 @@
 package com.sfeir.tweet.sender.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.sfeir.tweet.sender.channel.TweetSourceChannel;
 import com.sfeir.tweet.sender.thread.TwitterCaller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,12 @@ public class ScheduledFutureManager {
         this.scheduledFutureConcurrentHashMap = scheduledFutureConcurrentHashMap;
     }
 
-    @HystrixCommand(fallbackMethod = "fallbackCreateUserThreadAndAddToList")
+    /**
+    @HystrixCommand(fallbackMethod = "fallbackCreateUserThreadAndAddToList",commandProperties = {@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="10000")})
+    **/
+     @HystrixCommand(fallbackMethod = "fallbackCreateUserThreadAndAddToList")
     public void createUserThreadAndAddToList(User user) {
         if(! this.scheduledFutureConcurrentHashMap.containsKey(user)) {
-      /*      ScheduledFuture scheduledFuture = threadPoolTaskScheduler.scheduleWithFixedDelay(new TwitterCaller(tweetSourceChannel,user), 200000);*/
             Date date = new Date();
             ScheduledFuture scheduledFuture = threadPoolTaskScheduler.schedule(new TwitterCaller(tweetSourceChannel, user),date);
             this.scheduledFutureConcurrentHashMap.put(user, scheduledFuture);
