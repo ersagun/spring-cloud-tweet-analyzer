@@ -37,17 +37,16 @@ public class ScheduledFutureManager {
         this.scheduledFutureConcurrentHashMap = scheduledFutureConcurrentHashMap;
     }
 
-    /**
+
+    // @HystrixCommand(fallbackMethod = "fallbackCreateUserThreadAndAddToList")
     @HystrixCommand(fallbackMethod = "fallbackCreateUserThreadAndAddToList",commandProperties = {@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="10000")})
-    **/
-     @HystrixCommand(fallbackMethod = "fallbackCreateUserThreadAndAddToList")
     public void createUserThreadAndAddToList(User user) {
         if(! this.scheduledFutureConcurrentHashMap.containsKey(user)) {
             Date date = new Date();
             ScheduledFuture scheduledFuture = threadPoolTaskScheduler.schedule(new TwitterCaller(tweetSourceChannel, user),date);
             this.scheduledFutureConcurrentHashMap.put(user, scheduledFuture);
             LOGGER.log(Level.INFO,"User connection for "+user.getName()+" is created and added to scheduled future list");
-        }else throw  new RuntimeException("Connection is already exist for user " + user.getName());
+        } // else throw  new RuntimeException("Connection is already exist for user " + user.getName());
     }
 
     public void fallbackCreateUserThreadAndAddToList(User user, Throwable throwable){
